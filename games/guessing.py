@@ -18,7 +18,7 @@ def play():
     for round in range(1, attempts + 1):
 
         try:
-            print("Attempt {0} from {1} {2}".format(round, attempts, secret_number))
+            print("Attempt {0} from {1}".format(round, attempts))
 
             kick = 0;
             while(kick == 0):
