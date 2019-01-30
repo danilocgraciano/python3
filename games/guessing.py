@@ -40,7 +40,7 @@ def play():
 
 def showWelcomeMessage():
     print("#####################################")
-    print("#   Welcome to Guessing Game Game   #")
+    print("#     Welcome to Guessing Game      #")
     print("#####################################")
 
 def showLevelMessage():
@@ -48,11 +48,11 @@ def showLevelMessage():
 
 def readLevel():
     try:
-        level = int(input("Choose the level:"))
+        level = int(input("Choose the level: "))
         while (level < 1 or level > 3):
             print("Number invalid...")
             showLevelMessage()
-            level = int(input("Choose the level:"))
+            level = int(input("Choose the level: "))
         return level
 
     except ValueError:
@@ -70,10 +70,10 @@ def getAttempts(level):
 
 def readKick():
     try:
-        kick = int(input("Type a number between 1 an 100:"))
+        kick = int(input("Type a number between 1 an 100: "))
         while (kick < 1 or kick > 100):
             print("Number invalid...")
-            kick = int(input("Type a number between 1 an 100:"))
+            kick = int(input("Type a number between 1 an 100: "))
         return kick
     except ValueError:
         print("Please, type a number...")
