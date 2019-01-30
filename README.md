@@ -1,2 +1,3 @@
-# python3
-My Python Examples
+# Python3
+
+My Python Studies
