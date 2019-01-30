@@ -81,7 +81,8 @@ def readKick():
 
 def showFeedbackMessage(kick, secret_number):
     print("You missed!")
-    greater_than = kick > secret_number
+
+    greater_than = kick < secret_number
     less_than = not greater_than
 
     if (greater_than):
