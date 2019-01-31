@@ -1,4 +1,4 @@
-## Self study about Python language
+## Studies about Python language
 
 ### Games Project
 - Input and output on terminal
@@ -7,5 +7,5 @@
 - Custom and built-in functions
 - String manipulation
 - Data type (String, Int, Float Bool, List, Tuple, Set, Dictionary)
-- Read and Write in files
+- Read and Write text files
 - Clean Code
