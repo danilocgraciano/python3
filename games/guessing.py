@@ -20,7 +20,7 @@ def play():
         try:
             print("Attempt {0} from {1}".format(round, attempts))
 
-            kick = 0;
+            kick = 0
             while(kick == 0):
                 kick = read_kick()
 
@@ -55,7 +55,7 @@ def read_level():
             level = int(input("Choose the level: "))
     except ValueError:
         print("Please, type a number...")
-        return 0;
+        return 0
     else:
         return level
 
@@ -77,7 +77,7 @@ def read_kick():
         return kick
     except ValueError:
         print("Please, type a number...")
-        return 0;
+        return 0
 
 def show_feedback_message(kick, secret_number):
     print("You missed!")
