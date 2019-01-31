@@ -24,7 +24,6 @@ def show_welcome_message():
 def show_option_message():
     print("(1) Hangman (2) Guessing (0) Exit")
 
-
 def read_option():
     option = 0
     try:
@@ -37,5 +36,6 @@ def read_option():
         print("Please, type a number...")
     else:
         return option
+
 if (__name__ == "__main__"):
     main()
