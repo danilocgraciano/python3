@@ -1,4 +1,4 @@
-Self studies about python language using the following concepts
+## Self studies about python language using the following concepts
 
 - Input and Output by terminal
 - Exception treatment
