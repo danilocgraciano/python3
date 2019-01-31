@@ -1,5 +1,3 @@
-# Python3
-
 ## Self studies about python language using the following concepts
 
 - Input and Output on terminal
