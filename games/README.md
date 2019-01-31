@@ -1,6 +1,6 @@
 ## Self studies about python language using the following concepts
 
-- Input and Output by terminal
+- Input and Output on terminal
 - Exception treatment
 - Control Structures (if, else, for, while, etc)
 - Custom and built-in functions
