@@ -53,11 +53,11 @@ def readLevel():
             print("Number invalid...")
             showLevelMessage()
             level = int(input("Choose the level: "))
-        return level
-
     except ValueError:
         print("Please, type a number...")
         return 0;
+    else:
+        return level
 
 def getAttempts(level):
     if (level == 1):
