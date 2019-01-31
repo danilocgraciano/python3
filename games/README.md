@@ -1,11 +1,4 @@
-## Self studies about python language using the following concepts
+##Development of some games using the main concepts of the Python3 language:
 
-- Input and Output on terminal
-- Exception treatment
-- Control Structures (if, else, for, while, etc)
-- Custom and built-in functions
-- String manipulation
-- Data Type (List, Tuple, Set, Dictionary)
-- Clean Code
-
-With the topics above, it was possibly to code a Hangman and Guessing games.
+- Guessing Game
+- Hangmang Game
