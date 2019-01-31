@@ -1,9 +1,10 @@
-## Self studies about python language using the following concepts
+## Self studies about Python language
 
-- Input and Output on terminal
+### Games Project
+- Input and output on terminal
 - Exception treatment
-- Control Structures (if, else, for, while, etc)
+- Control structures (if, else, for, while, etc)
 - Custom and built-in functions
 - String manipulation
-- Data Type (List, Tuple, Set, Dictionary)
+- Data type (String, Int, Float Bool, List, Tuple, Set, Dictionary)
 - Clean Code
