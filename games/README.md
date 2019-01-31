@@ -7,3 +7,5 @@
 - String manipulation
 - Data Type (List, Tuple, Set, Dictionary)
 - Clean Code
+
+With the topics above, it was possibly to code a Hangman and Guessing games.
