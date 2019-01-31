@@ -7,5 +7,5 @@
 - Custom and built-in functions
 - String manipulation
 - Data type (String, Int, Float Bool, List, Tuple, Set, Dictionary)
-- Read and Write text files
+- Read and write text files
 - Clean Code
