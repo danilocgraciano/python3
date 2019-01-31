@@ -1,4 +1,4 @@
-## Self studies about Python language
+## Self study about Python language
 
 ### Games Project
 - Input and output on terminal
