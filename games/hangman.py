@@ -38,19 +38,19 @@ def play():
 
         print("The End")
 
-def create_dictionary():
-    file = open("dictionary.txt","w")
-    file.write("banana\n")
-    file.write("orange\n")
-    file.write("pineaple\n")
-    file.write("watermelow\n")
-    file.write("strawberry\n")
-    file.close()
+def create_dictionary(filename="dictionary.txt"):
+    with open(filename, "w") as file:
+        file.write("banana\n")
+        file.write("orange\n")
+        file.write("pineaple\n")
+        file.write("watermelow\n")
+        file.write("strawberry\n")
+        file.close()
 
-def read_dictionary():
+def read_dictionary(filename="dictionary.txt"):
     words = []
     try:
-        with open("dictionary.txt", "r") as file:
+        with open(filename, "r") as file:
             for row in file:
                 words.append(row.strip())
         file.close()
