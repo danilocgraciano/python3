@@ -50,9 +50,9 @@ def create_dictionary():
 def read_dictionary():
     words = []
     try:
-        file = open("dictionary.txt", "r")
-        for row in file:
-            words.append(row.strip())
+        with open("dictionary.txt", "r") as file:
+            for row in file:
+                words.append(row.strip())
         file.close()
     except FileNotFoundError:
         print('Dictionary not found')
