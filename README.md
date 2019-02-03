@@ -1,7 +1,8 @@
 ## Studies about Python language
 
-### Playstore Flask Project
--Dynamic Content on html pages
+### Playstore CRUD Projetc [Flask]
+- Dynamic Content on html pages
+- Route Methods (GET/POST)
 
 ### Python Flix Project
 - Inheritance
