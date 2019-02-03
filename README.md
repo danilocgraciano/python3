@@ -2,7 +2,7 @@
 
 ### Playstore CRUD Projetc [Flask]
 - Dynamic Content on html pages
-- Route Methods (GET/POST)
+- Request Methods (GET/POST)
 
 ### Python Flix Project
 - Inheritance
