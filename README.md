@@ -8,7 +8,7 @@
 - Duck Typing
 - Python data model
 - Dunder Methods
-- - Abstract Base Classes - ABC
+- Abstract Base Classes - ABC
 
 
 ### Bank Project
