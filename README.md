@@ -1,5 +1,8 @@
 ## Studies about Python language
 
+### Playstore Flask Project
+-Dynamic Content on html pages
+
 ### Python Flix Project
 - Inheritance
 - Garbage Collector
