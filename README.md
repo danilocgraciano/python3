@@ -1,8 +1,12 @@
 ## Studies about Python language
 
-### Playstore CRUD Projetc [Flask]
+### Playstore Micro WebSite [Flask]
 - Dynamic Content on html pages
 - Request Methods (GET/POST)
+- Jinja templates
+- Bootstrap
+- Login/Logout
+- Session manipulation
 
 ### Python Flix Project
 - Inheritance
