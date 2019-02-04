@@ -3,11 +3,11 @@ from game import Game
 from user import User
 
 games = []
-pou = Game("pou", "Kids", "Moto G2")
-subway_surfers = Game("subway surfers", "Kids", "Moto G3")
-my_talking_tom = Game("Mm talking tom", "Kids", "Moto G3")
-despicable_me = Game("despicable me", "Kids", "iPhone")
-zombie_tsunami = Game("zombie tsunami", "Kids", "iPhone")
+pou = Game("pou", "kids", "Moto G2")
+subway_surfers = Game("subway surfers", "kids", "Moto G3")
+my_talking_tom = Game("my talking tom", "kids", "Moto G3")
+despicable_me = Game("despicable me", "kids", "iPhone")
+zombie_tsunami = Game("zombie tsunami", "kids", "iPhone")
 
 games.append(pou)
 games.append(subway_surfers)
@@ -24,7 +24,7 @@ app.secret_key = "mK6W8Vhu7qQCb6hV"
 @app.route("/")
 def home():
     return render_template(
-        "list.html",
+        "game/list.html",
         title="Games",
         list=games
     )
@@ -35,7 +35,7 @@ def new():
         return redirect(url_for("login", url_after_login=url_for("new")))
 
     return render_template(
-        "form.html",
+        "game/form.html",
         title="New Game"
     )
 
