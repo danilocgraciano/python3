@@ -53,7 +53,7 @@ def edit(id):
 
     return render_template(
         "game/form.html",
-        title="New Game",
+        title="Edit Game",
         action=url_for("save"),
         game=game
     )
