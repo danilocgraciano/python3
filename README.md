@@ -7,6 +7,7 @@
 - Bootstrap
 - Login/Logout
 - Session manipulation
+- flask_mysqldb
 
 ### Python Flix Project
 - Inheritance

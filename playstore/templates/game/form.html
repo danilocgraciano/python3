@@ -1,20 +1,23 @@
 {% extends "template.html" %}
 {% block content %}
-    <form action="create" method="post">
+    <form action="{{action}}" method="post">
         <fieldset>
+          <input type="hidden" name="id" value="{{ game.id or '' }}">
+
           <div class="form-group">
             <label for="name">Name</label>
-            <input type="text" id="name" name="name" class="form-control">
+            <input type="text" id="name" name="name" class="form-control" value="{{ game.name or '' }}">
           </div>
           <div class="form-group">
             <label for="category">Category</label>
-            <input type="text" id="category" name="category" class="form-control">
+            <input type="text" id="category" name="category" class="form-control" value="{{ game.category or '' }}">
           </div>
           <div class="form-group">
             <label for="device">Device</label>
-            <input type="text" id="device" name="device" class="form-control">
+            <input type="text" id="device" name="device" class="form-control" value="{{ game.device or '' }}">
           </div>
           <button type="submit" class="btn btn-primary">Save</button>
+          <a class="btn btn-default" href="{{ url_for('home') }}">Cancel</a>
         </fieldset>
       </form>
 {% endblock %}

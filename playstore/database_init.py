@@ -2,7 +2,6 @@ import MySQLdb
 print('Connecting...')
 conn = MySQLdb.connect(user='root', passwd='root', host='127.0.0.1', port=3306)
 
-# Descomente se quiser desfazer o banco...
 conn.cursor().execute("DROP DATABASE `playstore`;")
 conn.commit()
 
@@ -17,7 +16,7 @@ create_tables = '''SET NAMES utf8;
       PRIMARY KEY (`id`)
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
     CREATE TABLE `user` (
-      `id` varchar(8) COLLATE utf8_bin NOT NULL,
+      `id` varchar(50) COLLATE utf8_bin NOT NULL,
       `name` varchar(20) COLLATE utf8_bin NOT NULL,
       `password` varchar(8) COLLATE utf8_bin NOT NULL,
       PRIMARY KEY (`id`)
@@ -41,18 +40,17 @@ for user in cursor.fetchall():
 
 # inserting games
 cursor.executemany(
-      'INSERT INTO playstore.game (aome, category, device) VALUES (%s, %s, %s)',
+      'INSERT INTO playstore.game (name, category, device) VALUES (%s, %s, %s)',
       [
-            ('God of War 4', 'Ação', 'PS4'),
-            ('NBA 2k18', 'Esporte', 'Xbox One'),
-            ('Rayman Legends', 'Indie', 'PS4'),
-            ('Super Mario RPG', 'RPG', 'SNES'),
-            ('Super Mario Kart', 'Corrida', 'SNES'),
-            ('Fire Emblem Echoes', 'Estratégia', '3DS'),
+            ("pou", "kids", "Moto G2"),
+            ("subway surfers", "kids", "Moto G3"),
+            ("my talking tom", "kids", "Moto G3"),
+            ("despicable me", "kids", "iPhone"),
+            ("zombie tsunami", "kids", "iPhone"),
       ])
 
 cursor.execute('select * from playstore.game')
-print(' -------------  Jogos:  -------------')
+print(' -------------  Games:  -------------')
 for game in cursor.fetchall():
     print(game[1])
 

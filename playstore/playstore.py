@@ -1,28 +1,29 @@
 from flask import Flask, render_template, request, redirect, session, flash, url_for
+from flask_mysqldb import MySQL
+
 from game import Game
 from user import User
 
-games = []
-pou = Game("pou", "kids", "Moto G2")
-subway_surfers = Game("subway surfers", "kids", "Moto G3")
-my_talking_tom = Game("my talking tom", "kids", "Moto G3")
-despicable_me = Game("despicable me", "kids", "iPhone")
-zombie_tsunami = Game("zombie tsunami", "kids", "iPhone")
-
-games.append(pou)
-games.append(subway_surfers)
-games.append(my_talking_tom)
-games.append(despicable_me)
-games.append(zombie_tsunami)
-
-user1 = User("danilocgraciano","Danilo C. Graciano","123456")
-users = {user1.id : user1}
+from game_dao import GameDao
+from user_dao import UserDao
 
 app = Flask(__name__)
 app.secret_key = "mK6W8Vhu7qQCb6hV"
 
+app.config['MYSQL_HOST'] = "127.0.0.1"
+app.config['MYSQL_USER'] = "root"
+app.config['MYSQL_PASSWORD'] = "root"
+app.config['MYSQL_DB'] = "playstore"
+app.config['MYSQL_PORT'] = 3306
+
+db = MySQL(app)
+
+gameDao = GameDao(db)
+userDao = UserDao(db)
+
 @app.route("/")
 def home():
+    games = gameDao.read()
     return render_template(
         "game/list.html",
         title="Games",
@@ -34,18 +35,44 @@ def new():
     if (not is_logged_in()):
         return redirect(url_for("login", url_after_login=url_for("new")))
 
+    game = Game(None, None, None)
+
     return render_template(
         "game/form.html",
-        title="New Game"
+        title="New Game",
+        action=url_for("save"),
+        game=game
     )
 
-@app.route("/create", methods=["POST"])
-def create():
+@app.route("/edit/<int:id>")
+def edit(id):
+    if (not is_logged_in()):
+        return redirect(url_for("login", url_after_login=url_for("edit")))
+
+    game = gameDao.read_by_id(id)
+
+    return render_template(
+        "game/form.html",
+        title="New Game",
+        action=url_for("save"),
+        game=game
+    )
+
+@app.route("/delete/<int:id>")
+def delete(id):
+    gameDao.delete(id)
+    flash("Game deleted!")
+    return redirect(url_for("home"))
+
+
+@app.route("/save", methods=["POST"])
+def save():
     name = request.form['name']
     category = request.form['category']
     device = request.form['device']
-    game = Game(name, category, device)
-    games.append(game)
+    id = request.form['id']
+    game = Game(name, category, device, id)
+    gameDao.save(game)
     return redirect(url_for("home"))
 
 @app.route("/login")
@@ -70,12 +97,13 @@ def authenticate():
     password = request.form["password"]
     url_after_login = request.form["url_after_login"]
 
-    user = users[username]
+    user = userDao.read_by_id(username)
 
-    if (user is not None and (username == user.id and password == user.password) ):
-        session["logged_user"] = username
-        flash(f"{user.name} logged in!")
-        return redirect(url_after_login)
+    if (user):
+        if (password == user.password ):
+            session["logged_user"] = username
+            flash(f"{user.name} logged in!")
+            return redirect(url_after_login)
     else:
         flash("Invalid login, try again!")
         return redirect(url_for("login"))
