@@ -1,5 +1,12 @@
 {% extends "template.html" %}
 {% block content %}
+
+    <div class="page-header">
+        <h1>
+          {{ title }}
+        </h1>
+    </div>
+
     <form method="POST" action="/authenticate">
 
         <input type="hidden" name="url_after_login" value="{{ url_after_login or url_for('home') }}">

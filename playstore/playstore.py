@@ -8,13 +8,7 @@ from game_dao import GameDao
 from user_dao import UserDao
 
 app = Flask(__name__)
-app.secret_key = "mK6W8Vhu7qQCb6hV"
-
-app.config['MYSQL_HOST'] = "127.0.0.1"
-app.config['MYSQL_USER'] = "root"
-app.config['MYSQL_PASSWORD'] = "root"
-app.config['MYSQL_DB'] = "playstore"
-app.config['MYSQL_PORT'] = 3306
+app.config.from_pyfile("config.py")
 
 db = MySQL(app)
 
@@ -47,7 +41,7 @@ def new():
 @app.route("/edit/<int:id>")
 def edit(id):
     if (not is_logged_in()):
-        return redirect(url_for("login", url_after_login=url_for("edit")))
+        return redirect(url_for("login", url_after_login=url_for("edit",id=id)))
 
     game = gameDao.read_by_id(id)
 
@@ -113,5 +107,7 @@ def is_logged_in():
         return False
     return True
 
-#app.run(host='0.0.0.0', port=8080)
-app.run(debug=True)
+
+if (__name__ == "__main__"):
+    # app.run(host='0.0.0.0', port=8080)
+    app.run(debug=True)
