@@ -1,23 +1,33 @@
-from flask import Flask, render_template, request, redirect, session, flash, url_for
-from flask_mysqldb import MySQL
+from flask import render_template, request, redirect, session, flash, url_for
 
-from game import Game
-from user import User
+from app.model import Game
+from app.model import User
 
-from game_dao import GameDao
-from user_dao import UserDao
+from app import create_app
+from app import db
 
-app = Flask(__name__)
-app.config.from_pyfile("config.py")
+app = create_app()
 
-db = MySQL(app)
+@app.route("/init")
+def init_data():
+    db.drop_all()
+    db.create_all()
 
-gameDao = GameDao(db)
-userDao = UserDao(db)
+    db.session.add(Game(None, "pou", "kids", "Moto G2"))
+    db.session.add(Game(None, "subway surfers", "kids", "Moto G3"))
+    db.session.add(Game(None, "my talking tom", "kids", "Moto G3"))
+    db.session.add(Game(None, "despicable me", "kids", "iPhone"))
+    db.session.add(Game(None, "zombie tsunami", "kids", "iPhone"))
+    db.session.commit()
+
+    db.session.add(User(None, "danilocgraciano","123456"))
+    db.session.commit()
+
+    return redirect(url_for("home"))
 
 @app.route("/")
 def home():
-    games = gameDao.read()
+    games = db.session.query(Game)
     return render_template(
         "game/list.html",
         title="Games",
@@ -29,7 +39,7 @@ def new():
     if (not is_logged_in()):
         return redirect(url_for("login", url_after_login=url_for("new")))
 
-    game = Game(None, None, None)
+    game = Game(None, None, None, None)
 
     return render_template(
         "game/form.html",
@@ -43,7 +53,7 @@ def edit(id):
     if (not is_logged_in()):
         return redirect(url_for("login", url_after_login=url_for("edit",id=id)))
 
-    game = gameDao.read_by_id(id)
+    game = db.session.query(Game).get(id)
 
     return render_template(
         "game/form.html",
@@ -54,19 +64,22 @@ def edit(id):
 
 @app.route("/delete/<int:id>")
 def delete(id):
-    gameDao.delete(id)
+    db.session.query(Game).filter(Game.id == id).delete()
+    db.session.commit()
     flash("Game deleted!")
     return redirect(url_for("home"))
 
 
 @app.route("/save", methods=["POST"])
 def save():
+
+    id = request.form['id'] or None
     name = request.form['name']
     category = request.form['category']
     device = request.form['device']
-    id = request.form['id']
-    game = Game(name, category, device, id)
-    gameDao.save(game)
+    game = Game(id, name, category, device)
+    db.session.merge(game)
+    db.session.commit()
     return redirect(url_for("home"))
 
 @app.route("/login")
@@ -91,7 +104,7 @@ def authenticate():
     password = request.form["password"]
     url_after_login = request.form["url_after_login"]
 
-    user = userDao.read_by_id(username)
+    user = None
 
     if (user):
         if (password == user.password ):
