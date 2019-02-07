@@ -6,6 +6,7 @@
 - Blueprints
 - Jinja templates
 - Bootstrap
+- PostgreSql
 
 ### Python Flix Project
 - Inheritance
