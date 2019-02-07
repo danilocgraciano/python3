@@ -38,4 +38,4 @@ def authenticate():
             return redirect(url_after_login)
     else:
         flash("Invalid login, try again!")
-        return redirect(url_for("user.login"))
+        return redirect(url_for("user.login", url_after_login=url_after_login))
