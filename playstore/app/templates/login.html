@@ -9,7 +9,7 @@
 
     <form method="POST" action="/authenticate">
 
-        <input type="hidden" name="url_after_login" value="{{ url_after_login or url_for('home') }}">
+        <input type="hidden" name="url_after_login" value="{{ url_after_login or url_for('game.home') }}">
 
         <p><label>Username:</label> <input class="form-control" type="text" name="username" required></p>
 
@@ -17,7 +17,7 @@
 
         <p>
             <button class="btn btn-primary" type="submit">Login</button>
-            <a class="btn btn-default" href="{{ url_for('home') }}">Cancel</a>
+            <a class="btn btn-default" href="{{ url_for('game.home') }}">Cancel</a>
         </p>
     </form>
 {% endblock %}
