@@ -1,13 +1,11 @@
 ## Studies about Python language
 
 ### Playstore Micro WebSite [Flask]
-- Dynamic Content on html pages
-- Request Methods (GET/POST)
+- Flask Framework
+- SQLAlchemy
+- Blueprints
 - Jinja templates
 - Bootstrap
-- Login/Logout
-- Session manipulation
-- flask_mysqldb
 
 ### Python Flix Project
 - Inheritance
