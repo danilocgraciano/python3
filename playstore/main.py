@@ -1,11 +1,15 @@
 from flask import redirect, url_for
+from flask_migrate import Migrate
+
 from app import db, create_app
 from app.model import Game, User
 
 app = create_app()
+migrate = Migrate(app, db)
 
 @app.route("/init")
 def init_data():
+
     db.drop_all()
     db.create_all()
 
