@@ -19,7 +19,7 @@ def new():
     if (not is_logged_in()):
         return redirect(url_for("user.login", url_after_login=url_for("game.new")))
 
-    game = Game(None, None, None, None)
+    game = Game()
 
     return render_template(
         "game/form.html",
@@ -52,12 +52,13 @@ def delete(id):
 
 @game.route("/save", methods=["POST"])
 def save():
+    game = Game()
 
-    id = request.form['id'] or None
-    name = request.form['name']
-    category = request.form['category']
-    device = request.form['device']
-    game = Game(id, name, category, device)
+    game.id = request.form['id'] or None
+    game.name = request.form['name']
+    game.category = request.form['category']
+    game.device = request.form['device']
+
     db.session.merge(game)
     db.session.commit()
     return redirect(url_for("game.home"))
