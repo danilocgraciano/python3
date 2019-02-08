@@ -21,8 +21,8 @@
                 <tbody>
                     {% for game in list %}
                         <tr>
-                            <td>{{game.name | title}}</td>
-                            <td>{{game.category | capitalize}}</td>
+                            <td>{{game.name}}</td>
+                            <td>{{game.category.name}}</td>
                             <td>{{game.device}}</td>
                             <td>
                                 <a href="{{ url_for('game.edit', id=game.id) }}">Edit</a>

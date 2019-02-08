@@ -6,7 +6,7 @@
 - Migrations
     - Examples (on terminal)
         - set FLASK_APP=main.py
-        - flask db ini
+        - flask db init
         - flask db migrate -m "Add Unique Constraint on Game.name"
         - flask db upgrade
 - Blueprints

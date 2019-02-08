@@ -2,7 +2,7 @@ from flask import redirect, url_for
 from flask_migrate import Migrate
 
 from app import db, create_app
-from app.model import Game, User
+from app.model import Game, User, Category
 
 app = create_app()
 migrate = Migrate(app, db)
@@ -13,11 +13,15 @@ def init_data():
     db.drop_all()
     db.create_all()
 
-    db.session.add(Game(None, "pou", "kids", "Moto G2"))
-    db.session.add(Game(None, "subway surfers", "kids", "Moto G3"))
-    db.session.add(Game(None, "my talking tom", "kids", "Moto G3"))
-    db.session.add(Game(None, "despicable me", "kids", "iPhone"))
-    db.session.add(Game(None, "zombie tsunami", "kids", "iPhone"))
+    kids = Category(None,"Kids")
+    db.session.add(kids)
+    db.session.commit()
+
+    db.session.add(Game(None, "Pou", kids, "Moto G2"))
+    db.session.add(Game(None, "Subway Surfers", kids, "Moto G3"))
+    db.session.add(Game(None, "My Talking Tom", kids, "Moto G3"))
+    db.session.add(Game(None, "Despicable Me", kids, "iPhone"))
+    db.session.add(Game(None, "Zombie Tsunami", kids, "iPhone"))
     db.session.commit()
 
     db.session.add(User(None, "danilocgraciano","123456"))

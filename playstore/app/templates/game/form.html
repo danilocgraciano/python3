@@ -17,7 +17,12 @@
           </div>
           <div class="form-group">
             <label for="category">Category</label>
-            <input type="text" id="category" name="category" class="form-control" value="{{ game.category or '' }}">
+
+            <select class="form-control" id="category" name="category.id">
+                {% for category in categories %}
+                    <option value="{{category.id}}" {{'selected' if game.category.id==category.id}}>{{category.name}}</option>
+                {% endfor %}
+            </select>
           </div>
           <div class="form-group">
             <label for="device">Device</label>
