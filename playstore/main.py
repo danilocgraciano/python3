@@ -1,5 +1,6 @@
 from flask import redirect, url_for
 from flask_migrate import Migrate
+from werkzeug.security import generate_password_hash
 
 from app import db, create_app
 from app.model import Game, User, Category
@@ -10,8 +11,8 @@ migrate = Migrate(app, db)
 @app.route("/init")
 def init_data():
 
-    db.drop_all()
-    db.create_all()
+    #db.drop_all()
+    #db.create_all()
 
     kids = Category(None,"Kids")
     db.session.add(kids)
@@ -24,7 +25,7 @@ def init_data():
     db.session.add(Game(None, "Zombie Tsunami", kids, "iPhone"))
     db.session.commit()
 
-    db.session.add(User(None, "danilocgraciano","123456"))
+    db.session.add(User(None, "danilocgraciano", generate_password_hash("123456")))
     db.session.commit()
 
     return redirect(url_for("game.home"))

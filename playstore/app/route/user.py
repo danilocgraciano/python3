@@ -1,6 +1,7 @@
 from functools import wraps
 
 from flask import Blueprint, render_template, request, redirect, session, flash, url_for, g
+from werkzeug.security import check_password_hash
 
 from app import db
 from app.model import User
@@ -30,14 +31,13 @@ def authenticate():
     password = request.form["password"]
     url_after_login = request.form["url_after_login"]
 
-    user = db.session.query(User).filter(User.name == username, User.password == password).all()
+    user = db.session.query(User).filter(User.name == username).all()
 
-    if (len(user) > 0):
-        user = user[0]
-        if (password == user.password ):
-            session["logged_user"] = username
-            #flash(f"{user.name} logged in!")
-            return redirect(url_after_login)
+    user = user[0] or None
+    if (user and check_password_hash(user.password, password)):
+        session["logged_user"] = username
+        #flash(f"{user.name} logged in!")
+        return redirect(url_after_login)
     else:
         flash("Invalid login, try again!")
         return redirect(url_for("user.login", url_after_login=url_after_login))
