@@ -9,7 +9,7 @@
 
     <form method="POST" action="/authenticate">
 
-        <input type="hidden" name="url_after_login" value="{{ url_after_login or url_for('game.home') }}">
+        <input type="hidden" name="url_after_login" value="{{ request.args.get('next', '') }}">
 
         <p><label>Username:</label> <input class="form-control" type="text" name="username" required></p>
 

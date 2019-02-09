@@ -1,4 +1,6 @@
-from flask import Blueprint, render_template, request, redirect, session, flash, url_for
+from functools import wraps
+
+from flask import Blueprint, render_template, request, redirect, session, flash, url_for, g
 
 from app import db
 from app.model import User
@@ -17,7 +19,7 @@ def login():
 
 @user.route("/logout")
 def logout():
-    session["logged_user"] = None
+    session.clear()
     flash("Logout successfully!")
     return redirect(url_for("game.home"))
 
@@ -39,3 +41,18 @@ def authenticate():
     else:
         flash("Invalid login, try again!")
         return redirect(url_for("user.login", url_after_login=url_after_login))
+
+@user.before_app_request
+def load_logged_user():
+    if ("logged_user" not in session or session["logged_user"] == None):
+        g.user = None
+    else:
+        g.user = session["logged_user"]
+
+def login_required(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        if g.user is None:
+            return redirect(url_for('user.login', next=request.url))
+        return f(*args, **kwargs)
+    return decorated_function

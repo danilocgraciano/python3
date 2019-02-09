@@ -1,7 +1,8 @@
-from flask import Blueprint, render_template, request, redirect, session, flash, url_for
+from flask import Blueprint, render_template, request, redirect, flash, url_for
 
 from app import db
 from app.model import Game, Category
+from app.route.user import login_required
 
 game = Blueprint("game",__name__)
 
@@ -16,10 +17,8 @@ def home():
     )
 
 @game.route("/new")
+@login_required
 def new():
-    if (not is_logged_in()):
-        return redirect(url_for("user.login", url_after_login=url_for("game.new")))
-
     game = Game(None, None, None, None)
     categories = db.session.query(Category).order_by(Category.name)
 
@@ -32,10 +31,8 @@ def new():
     )
 
 @game.route("/edit/<int:id>")
+@login_required
 def edit(id):
-    if (not is_logged_in()):
-        return redirect(url_for("user.login", url_after_login=url_for("game.edit",id=id)))
-
     game = db.session.query(Game).get(id)
     categories = db.session.query(Category).order_by(Category.name)
 
@@ -48,6 +45,7 @@ def edit(id):
     )
 
 @game.route("/delete/<int:id>")
+@login_required
 def delete(id):
     db.session.query(Game).filter(Game.id == id).delete()
     db.session.commit()
@@ -71,12 +69,7 @@ def save():
     #game.category_id = category_id
     game.device = request.form['device']
 
-
     db.session.merge(game)
     db.session.commit()
     return redirect(url_for("game.home"))
 
-def is_logged_in():
-    if ("logged_user" not in session or session["logged_user"] == None):
-        return False
-    return True
