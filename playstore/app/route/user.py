@@ -20,7 +20,7 @@ def login():
 @user.route("/logout")
 def logout():
     session.clear()
-    flash("Logout successfully!")
+    #flash("Logout successfully!")
     return redirect(url_for("game.home"))
 
 @user.route("/authenticate", methods=["POST"])
@@ -36,7 +36,7 @@ def authenticate():
         user = user[0]
         if (password == user.password ):
             session["logged_user"] = username
-            flash(f"{user.name} logged in!")
+            #flash(f"{user.name} logged in!")
             return redirect(url_after_login)
     else:
         flash("Invalid login, try again!")
