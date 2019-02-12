@@ -1,5 +1,13 @@
 ## Studies about Python language
 
+### Library API [Flask]
+- Flask Framework
+- SQLAlchemy
+- Marshmallow-SQLAlchemy
+- Blueprints
+- PostgreSql
+
+
 ### Playstore Micro WebSite [Flask]
 - Flask Framework
 - SQLAlchemy
