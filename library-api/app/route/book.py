@@ -1,5 +1,4 @@
 from flask import Blueprint, jsonify, request, url_for
-from werkzeug.exceptions import abort
 
 from app import db
 from app.model import Book
@@ -13,6 +12,7 @@ book = Blueprint("book", __name__)
 def all():
 
     page = request.args.get('page', 1, type=int)
+
     pagination = db.session.query(Book).order_by(Book.name).paginate(page, per_page=PAGE_SIZE, error_out=False)
     all = pagination.items
 
@@ -26,6 +26,7 @@ def all():
         next = url_for('book.all', page=page + 1, _external=True)
 
     result = BookSchema(many=True).dump(all)
+
     return jsonify({
         "data": result.data,
         'prev': prev,
@@ -50,13 +51,10 @@ def create():
 
     result = book_schema.dump(new_book)
 
-    return jsonify(result.data),201,{'Location': url_for("book.one", id=new_book.id, _external=True)}
+    return jsonify(result.data), 201, {'Location': url_for("book.one", id=new_book.id, _external=True)}
 
 @book.route("/books/<int:id>", methods=["PUT"])
 def update(id):
-
-    if (not request.json):
-        abort(400)
 
     book_schema = BookSchema()
     result = book_schema.load(request.json)
@@ -72,18 +70,12 @@ def update(id):
 
     result = book_schema.dump(new_book)
 
-    return jsonify(result.data), 200
+    return jsonify(result.data)
 
 @book.route("/books/<int:id>", methods=["DELETE"])
 def delete(id):
 
-    if (not request.json):
-        abort(400)
-
-    _book = db.session.query(Book).get(id)
-
-    if (not _book):
-        abort(404)
+    _book = db.session.query(Book).get_or_404(id)
 
     db.session.query(Book).filter(Book.id == id).delete()
     db.session.commit()
