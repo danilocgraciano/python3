@@ -5,13 +5,33 @@ from app import db
 from app.model import Book
 from app.schema import BookSchema
 
+from app.config import PAGE_SIZE
+
 book = Blueprint("book", __name__)
 
 @book.route("/books", methods=["GET"])
 def all():
-    all = db.session.query(Book).order_by(Book.name).order_by(Book.name)
+
+    page = request.args.get('page', 1, type=int)
+    pagination = db.session.query(Book).order_by(Book.name).paginate(page, per_page=PAGE_SIZE, error_out=False)
+    all = pagination.items
+
+    next = None
+    prev = None
+
+    if pagination.has_prev:
+        prev = url_for('book.all', page=page - 1, _external=True)
+
+    if pagination.has_next:
+        next = url_for('book.all', page=page + 1, _external=True)
+
     result = BookSchema(many=True).dump(all)
-    return jsonify(result.data)
+    return jsonify({
+        "data": result.data,
+        'prev': prev,
+        'next': next,
+        'count': pagination.total
+    })
 
 @book.route("/books/<int:id>", methods=["GET"])
 def one(id):
