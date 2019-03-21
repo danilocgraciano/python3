@@ -1,7 +1,7 @@
 ## Studies about Python language
 
 ### Design Patterns
--Strategy
+- Strategy
 
 ### Library API [Flask]
 - Flask Framework
