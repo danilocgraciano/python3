@@ -1,5 +1,8 @@
 ## Studies about Python language
 
+### Design Patterns
+-Strategy
+
 ### Library API [Flask]
 - Flask Framework
 - SQLAlchemy
